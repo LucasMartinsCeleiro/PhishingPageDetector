@@ -27,5 +27,7 @@ jobs:
           pip install safety
 
       - name: Run Safety Scan
+        env:
+          SAFETY_API_KEY: ${{ secrets.SAFETY_API_KEY }}
         run: |
-          safety scan
+          safety scan --key $SAFETY_API_KEY
