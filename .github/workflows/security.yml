@@ -26,8 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install safety
 
-      - name: Run Safety Scan
+      - name: Run Safety Scan and Fix Vulnerabilities
         env:
           SAFETY_API_KEY: ${{ secrets.SAFETY_API_KEY }}
         run: |
-          safety scan --key $SAFETY_API_KEY
+          safety scan --key $SAFETY_API_KEY --apply-fixes
