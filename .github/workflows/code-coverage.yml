@@ -1,0 +1,37 @@
+name: Code Coverage
+
+# Define events that trigger this workflow
+on:
+  push:               # Run the workflow on code pushes
+    branches:
+      - main          # Only on the 'main' branch
+  pull_request:       # Run the workflow on pull requests to 'main'
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov
+
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=phishing_detector --cov-report=xml  # Generates coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}  # Use the token securely
