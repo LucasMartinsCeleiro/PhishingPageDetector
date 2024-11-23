@@ -1,11 +1,11 @@
 name: Code Coverage
 
-# Define events that trigger this workflow
+
 on:
-  push:               # Run the workflow on code pushes
+  push:
     branches:
-      - main          # Only on the 'main' branch
-  pull_request:       # Run the workflow on pull requests to 'main'
+      - main
+  pull_request:
     branches:
       - main
 
@@ -34,4 +34,4 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}  # Use the token securely
+          token: ${{ secrets.CODECOV_TOKEN }}

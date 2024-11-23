@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Homepage</title>
+    <title>URL Analyzer</title>
 </head>
 <body>
-    <h1>Homepage</h1>
+    <h1>URL Analyzer</h1>
+    <form method="post">
+        <label for="url">Enter a URL to analyze:</label>
+        <input type="text" id="url" name="url" placeholder="https://example.com" required>
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+    <div>
+        <h2>Analysis Result</h2>
+        <p><strong>Valid:</strong> {{ result.is_valid }}</p>
+        <p><strong>Message:</strong> {{ result.message }}</p>
+        {% if result.parsed %}
+        <h3>Parsed Components:</h3>
+        <ul>
+            <li><strong>Scheme:</strong> {{ result.parsed.scheme }}</li>
+            <li><strong>Domain:</strong> {{ result.parsed.domain }}</li>
+            <li><strong>Subdomain:</strong> {{ result.parsed.subdomain }}</li>
+            <li><strong>Path:</strong> {{ result.parsed.path }}</li>
+            <li><strong>Query:</strong> {{ result.parsed.query }}</li>
+        </ul>
+        {% endif %}
+    </div>
+    {% endif %}
 </body>
 </html>
