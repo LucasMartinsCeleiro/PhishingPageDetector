@@ -41,5 +41,9 @@ jobs:
           if [ "$(git status --porcelain)" ]; then
             git add .
             git commit -m "Autoformatted code with Black"
-            git push
           fi
+
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
