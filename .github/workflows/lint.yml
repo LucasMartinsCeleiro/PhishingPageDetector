@@ -1,4 +1,4 @@
-name: Lint Python Code
+name: Lint and Autoformat Python Code
 
 on:
   push:
@@ -30,6 +30,16 @@ jobs:
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-      - name: Run Black (Check Mode)
+      - name: Run Black (Autoformat Mode)
         run: |
-          black --check .
+          black .
+
+      - name: Commit changes if formatting was applied
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Autoformatted code with Black"
+            git push
+          fi
